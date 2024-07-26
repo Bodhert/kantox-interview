@@ -34,6 +34,8 @@ machine going to communicate with us somehow?
 
 # nice to have:
 - [ ] add coverage
+- [ ] specs
+- [ ] docs
 - [ ] dockerize
 
 

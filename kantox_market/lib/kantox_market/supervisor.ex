@@ -9,7 +9,8 @@ defmodule KantoxMarket.Supervisor do
 
   def init(:ok) do
     children = [
-      KantoxMarket.ProductsTable
+      KantoxMarket.ProductsTable,
+      KantoxMarket.ShoppingCart
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
