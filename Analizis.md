@@ -1,11 +1,11 @@
 # Facts
 - the core idea is **add**  products and is able to display the total price.
 - there can be discounts based on some conditions, that are:
-        - buy-one-get-one-free offers and of green tea: this mathematically means
-        that if the item list is pair, the checkout will be the half of the price,
-        - if not will be the half of the size plus one item.
+    - buy-one-get-one-free offers and of green tea: this mathematically means
+that if the item list is pair, the checkout will be the half of the price,
+    - if not will be the half of the size plus one item.
         If you buy 3 or more strawberries, the price should drop to £4.50 per strawberry (pretty straightforward)
-        - If you buy 3 or more coffees, the price of all coffees should drop to two thirds of the original price(pretty straightforward).
+    - If you buy 3 or more coffees, the price of all coffees should drop to two thirds of the original price(pretty straightforward).
 - Our check-out can scan items in any order, and because the CEO and COO change their minds often, it needs to be flexible regarding our pricing rules: this means
 that we will need to add the ability to quickly change or add Business rules
 
@@ -31,6 +31,10 @@ machine going to communicate with us somehow?
 - [ ] use money, ex_money to handle the currency
 - [ ] we need the ability to quickly add rules
 - [ ] think and create cases that could break the checkout system. (a very long value) see how it behaves.
+
+# nice to have:
+- [ ] add coverage
+- [ ] dockerize
 
 
 
