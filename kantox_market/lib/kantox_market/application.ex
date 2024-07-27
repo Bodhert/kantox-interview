@@ -8,7 +8,8 @@ defmodule KantoxMarket.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      KantoxMarket.Supervisor
+      KantoxMarket.Supervisor,
+      {Task, fn -> KantoxMarket.prompt_console() end}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
