@@ -61,7 +61,48 @@ defmodule ShoppingCardTest do
       ShoppingCart.add_item_to_cart("CF1")
       ShoppingCart.add_item_to_cart("CF1")
       ShoppingCart.add_item_to_cart("CF1")
-      assert ShoppingCart.calculate_total() == Money.new(:EUR, "22.46")
+
+      assert ShoppingCart.calculate_total() |> Money.to_string!() ==
+               Money.new(:EUR, "22.46") |> Money.to_string!()
+    end
+  end
+
+  describe "test data" do
+    test "first test case" do
+      ShoppingCart.add_item_to_cart("GR1")
+      ShoppingCart.add_item_to_cart("SR1")
+      ShoppingCart.add_item_to_cart("GR1")
+      ShoppingCart.add_item_to_cart("GR1")
+      ShoppingCart.add_item_to_cart("CF1")
+      assert ShoppingCart.calculate_total() == Money.new(:EUR, "22.45")
+    end
+
+    test "first test case (order does not matter)" do
+      ShoppingCart.add_item_to_cart("SR1")
+      ShoppingCart.add_item_to_cart("GR1")
+      ShoppingCart.add_item_to_cart("CF1")
+      ShoppingCart.add_item_to_cart("GR1")
+      ShoppingCart.add_item_to_cart("GR1")
+      assert ShoppingCart.calculate_total() == Money.new(:EUR, "22.45")
+    end
+
+    test "third test case" do
+      ShoppingCart.add_item_to_cart("SR1")
+      ShoppingCart.add_item_to_cart("SR1")
+      ShoppingCart.add_item_to_cart("GR1")
+      ShoppingCart.add_item_to_cart("SR1")
+      assert ShoppingCart.calculate_total() == Money.new(:EUR, "16.61")
+    end
+
+    test "fourth test case" do
+      ShoppingCart.add_item_to_cart("GR1")
+      ShoppingCart.add_item_to_cart("CF1")
+      ShoppingCart.add_item_to_cart("SR1")
+      ShoppingCart.add_item_to_cart("CF1")
+      ShoppingCart.add_item_to_cart("CF1")
+
+      assert ShoppingCart.calculate_total() |> Money.to_string!() ==
+               Money.new(:EUR, "30.57") |> Money.to_string!()
     end
   end
 end
