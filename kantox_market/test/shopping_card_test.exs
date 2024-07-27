@@ -57,7 +57,7 @@ defmodule ShoppingCardTest do
       assert ShoppingCart.calculate_total() == Money.new(:EUR, "22.46")
     end
 
-    test "Buy more than three coffes reduce the original price 2/3" do
+    test "Buy more than three coffees reduce the original price 2/3" do
       ShoppingCart.add_item_to_cart("CF1")
       ShoppingCart.add_item_to_cart("CF1")
       ShoppingCart.add_item_to_cart("CF1")
