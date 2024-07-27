@@ -3,8 +3,8 @@ defmodule ProductsTableTest do
   alias KantoxMarket.ProductsTable
 
   test "Returns the map {:ok, %map()} given the key" do
-    {:ok, %{code: "GR1", name: "Green tea", price: Money.new!(:EUR, "3.11")}} ==
-      ProductsTable.get_product("GR1")
+    assert {:ok, %{code: "GR1", name: "Green tea", price: Money.new!(:EUR, "3.11")}} ==
+             ProductsTable.get_product("GR1")
   end
 
   test "Returns error if the key does not exists" do

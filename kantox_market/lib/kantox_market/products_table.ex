@@ -3,7 +3,7 @@ defmodule KantoxMarket.ProductsTable do
 
   @products [
     %{code: "GR1", name: "Green tea", price: Money.new!(:EUR, "3.11")},
-    %{code: "SR1", name: "Strawberries", price: Money.new!(:EUR, "500")},
+    %{code: "SR1", name: "Strawberries", price: Money.new!(:EUR, "5.00")},
     %{code: "CF1", name: "Coffee", price: Money.new!(:EUR, "11.23")}
   ]
 

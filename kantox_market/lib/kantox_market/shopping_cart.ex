@@ -20,6 +20,10 @@ defmodule KantoxMarket.ShoppingCart do
     GenServer.call(__MODULE__, :calculate_total)
   end
 
+  def checkout_cart() do
+    GenServer.call(__MODULE__, :checkout)
+  end
+
   def handle_call({:add, item}, _from, state) do
     with {:ok, item_info} <- ProductsTable.get_product(item) do
       {:reply, :ok, update_cart(state, item_info.code)}
@@ -31,21 +35,24 @@ defmodule KantoxMarket.ShoppingCart do
   end
 
   def handle_call(:calculate_total, _, state) do
-    Enum.reduce(state, Money.zero(:EUR), fn {product, quantity}, acc ->
-      case ProductsTable.get_product(product) do
-        {:ok, product_info} ->
-          Money.add!(acc, maybe_apply_discount(product, quantity, product_info.price))
+    final_cost =
+      Enum.reduce(state, Money.zero(:EUR), fn {product, quantity}, acc ->
+        case ProductsTable.get_product(product) do
+          {:ok, product_info} ->
+            Money.add!(acc, maybe_apply_discount(product, quantity, product_info.price))
 
-        :error ->
-          acc
-      end
-    end)
-    |> IO.puts()
+          :error ->
+            acc
+        end
+      end)
 
-    {:reply, :ok, state}
+    {:reply, final_cost, state}
   end
 
-  # TODO test this busness rules.
+  def handle_call(:checkout, _, _state) do
+    {:reply, :ok, %{}}
+  end
+
   defp maybe_apply_discount("GR1", quantity, price) when quantity >= 2 do
     if rem(quantity, 2) == 0 do
       price
@@ -57,6 +64,17 @@ defmodule KantoxMarket.ShoppingCart do
       |> Money.div!(2)
       |> Money.add!(price)
     end
+  end
+
+  defp maybe_apply_discount("SR1", quantity, _price) when quantity >= 3 do
+    price = Money.new!(:EUR, "4.50")
+    Money.mult!(price, quantity)
+  end
+
+  defp maybe_apply_discount("CF1", quantity, price) when quantity >= 3 do
+    price_drop = Decimal.div(Decimal.new(2), Decimal.new(3))
+    new_price = Money.mult!(price, price_drop)
+    Money.mult!(new_price, quantity)
   end
 
   defp maybe_apply_discount(_, quantity, price), do: Money.mult!(price, quantity)
