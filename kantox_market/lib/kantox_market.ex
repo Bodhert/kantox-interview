@@ -44,7 +44,7 @@ defmodule KantoxMarket do
   end
 
   defp clean_input(input) when is_binary(input) do
-    input |> String.trim() |> String.split(",")
+    input |> String.trim() |> String.replace(" ", "") |> String.split(",")
   end
 
   defp clean_input(:eof) do

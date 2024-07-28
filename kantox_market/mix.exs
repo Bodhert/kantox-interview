@@ -21,9 +21,7 @@ defmodule KantoxMarket.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      # :wx and :observer, :runtime_tools needs to be removed if the machine executing it does not
-      # have installed
-      extra_applications: [:logger, :wx, :observer, :runtime_tools],
+      extra_applications: extra_applications(Mix.env()),
       mod: {KantoxMarket.Application, []}
     ]
   end
@@ -40,4 +38,7 @@ defmodule KantoxMarket.MixProject do
 
   defp elixirc_paths(:test), do: ["test/support", "lib"]
   defp elixirc_paths(_), do: ["lib"]
+
+  defp extra_applications(:prod), do: [:logger]
+  defp extra_applications(_), do: [:logger, :wx, :observer, :runtime_tools]
 end

@@ -37,4 +37,20 @@ defmodule KantoxMarketTest do
 
     assert capture_output =~ "€14.34"
   end
+
+  test "Displays  should be the same no matter if has spaces" do
+    input = "    GR1,     CF1\n"
+
+    ShutdownHandlerMock
+    |> expect(:stop, fn ->
+      :ok
+    end)
+
+    capture_output =
+      capture_io([input: input], fn ->
+        KantoxMarket.prompt_console()
+      end)
+
+    assert capture_output =~ "€14.34"
+  end
 end
