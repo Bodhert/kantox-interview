@@ -9,7 +9,12 @@ defmodule KantoxMarket.MixProject do
       config_path: "config/config.exs",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      elixirc_paths: elixirc_paths(Mix.env())
+      elixirc_paths: elixirc_paths(Mix.env()),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -28,7 +33,8 @@ defmodule KantoxMarket.MixProject do
     [
       {:ex_money, "~> 5.0"},
       {:jason, "~> 1.0"},
-      {:mox, "~> 1.0", only: :test}
+      {:mox, "~> 1.0", only: :test},
+      {:excoveralls, "~> 0.18", only: :test}
     ]
   end
 

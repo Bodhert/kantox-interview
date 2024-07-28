@@ -22,7 +22,7 @@ defmodule KantoxMarketTest do
     assert capture_output =~ "Goodbye"
   end
 
-  test "Displays the output" do
+  test "Displays the price in the output" do
     input = "GR1,CF1\n"
 
     ShutdownHandlerMock
