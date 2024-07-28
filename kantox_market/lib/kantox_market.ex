@@ -3,7 +3,10 @@ defmodule KantoxMarket do
   Documentation for `KantoxMarket`.
   """
 
+  require Logger
   alias KantoxMarket.ShoppingCart
+
+  @shutdown_handler Application.compile_env(:kantox_market, :shut_down_handler)
 
   def prompt_console() do
     IO.puts("Enter product separated by , ex: GR1, SR1, CF1")
@@ -13,13 +16,18 @@ defmodule KantoxMarket do
 
   defp loop() do
     input = IO.gets("Basket: ")
-    cleaned_input = input |> String.trim() |> String.split(",")
+    cleaned_input = clean_input(input)
     run_command(cleaned_input)
   end
 
   defp run_command(["exit"]) do
     IO.puts("Goodbye!")
-    System.stop()
+    @shutdown_handler.stop()
+  end
+
+  defp run_command(:eof) do
+    IO.puts("Goodbye!")
+    @shutdown_handler.stop()
   end
 
   defp run_command(products) when is_list(products) do
@@ -33,6 +41,13 @@ defmodule KantoxMarket do
 
   defp run_command(input) do
     IO.puts("unable to process #{input}")
-    loop()
+  end
+
+  defp clean_input(input) when is_binary(input) do
+    input |> String.trim() |> String.split(",")
+  end
+
+  defp clean_input(:eof) do
+    :eof
   end
 end
