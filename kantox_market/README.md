@@ -60,8 +60,8 @@ machine going to communicate with us somehow?
 - [x] think and create cases that could break the checkout system. (a very long value) see how it behaves.
 
 ### nice to have:
-- [ ] specs
-- [ ] docs
+- [x] specs
+- [x] docs
 - [x] dockerize
 
 
@@ -70,7 +70,7 @@ machine going to communicate with us somehow?
 <img src="docs/img/initial_design.png" alt="Responsive Image" width="50%">
 
 #### Current Architecture
-<img src="docs/img/final_desing.png" alt="Responsive Image" width="50%">
+<img src="docs/img/final_design.png" alt="Responsive Image" width="50%">
 
 
 

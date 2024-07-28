@@ -21,7 +21,6 @@ defmodule KantoxMarket.MixProject do
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: extra_applications(Mix.env()),
@@ -29,7 +28,6 @@ defmodule KantoxMarket.MixProject do
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:ex_money, "~> 5.0"},
