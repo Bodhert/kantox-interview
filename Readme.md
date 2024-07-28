@@ -1,2 +1,2 @@
-go to the `kantox_market` there you will find all information required to run
+go to the `kantox_market` folder there you will find all information required to run
 and test.
