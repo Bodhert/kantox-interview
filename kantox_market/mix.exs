@@ -8,6 +8,9 @@ defmodule KantoxMarket.MixProject do
       elixir: "~> 1.15",
       config_path: "config/config.exs",
       start_permanent: Mix.env() == :prod,
+      dialyzer: [
+        flags: [:error_handling, :no_opaque, :underspecs]
+      ],
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: ExCoveralls],
@@ -32,7 +35,8 @@ defmodule KantoxMarket.MixProject do
       {:ex_money, "~> 5.0"},
       {:jason, "~> 1.0"},
       {:mox, "~> 1.0", only: :test},
-      {:excoveralls, "~> 0.18", only: :test}
+      {:excoveralls, "~> 0.18", only: :test},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 

@@ -1,4 +1,18 @@
 defmodule KantoxMarket.ProductsTable do
+  @moduledoc """
+  A GenServer-based module for managing a table of products using ETS (Erlang Term Storage).
+
+  This module initializes an ETS table with a predefined set of products and provides functions
+  to retrieve product information.
+
+  ## Products
+
+  The following products are preloaded into the ETS table:
+
+    - **GR1**: Green tea, priced at €3.11
+    - **SR1**: Strawberries, priced at €5.00
+    - **CF1**: Coffee, priced at €11.23
+  """
   use GenServer
 
   @products [
@@ -16,6 +30,16 @@ defmodule KantoxMarket.ProductsTable do
     {:ok, :noop}
   end
 
+  @doc """
+  Loads the predefined products into the ETS table.
+
+  This function creates an ETS table and inserts the predefined set of products.
+
+  ## Returns
+
+    - `:ok` if the products are successfully loaded into the ETS table.
+  """
+  @spec load_products() :: :ok
   def load_products do
     :ets.new(:products, [:set, :protected, :named_table, {:read_concurrency, true}])
 
@@ -24,6 +48,19 @@ defmodule KantoxMarket.ProductsTable do
     end)
   end
 
+  @doc """
+  Retrieves a product from the ETS table by its code.
+
+  ## Parameters
+
+    - `code`: The code of the product to retrieve.
+
+  ## Returns
+
+    - `{:ok, product}`: Returns the product if found in the ETS table.
+    - `:error`: Returns `:error` if the product is not found.
+  """
+  @spec get_product(String.t()) :: {:ok, map()} | :error
   def get_product(code) do
     case :ets.lookup(:products, code) do
       [{^code, product}] -> {:ok, product}

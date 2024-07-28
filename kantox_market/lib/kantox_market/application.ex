@@ -1,6 +1,4 @@
 defmodule KantoxMarket.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
@@ -12,8 +10,6 @@ defmodule KantoxMarket.Application do
       {Task, fn -> KantoxMarket.prompt_console() end}
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: KantoxMarket.Application]
     Supervisor.start_link(children, opts)
   end

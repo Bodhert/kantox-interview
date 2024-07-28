@@ -1,4 +1,7 @@
 defmodule KantoxMarket.ShoppingCart do
+  @doc """
+  Starts the `ShoppingCart` GenServer.
+  """
   use GenServer
 
   require Logger
@@ -12,14 +15,42 @@ defmodule KantoxMarket.ShoppingCart do
     {:ok, %{}}
   end
 
+  @doc """
+  Adds an item to the shopping cart.
+
+  ## Parameters
+
+    - `item`: The code of the item to add to the cart.
+
+  ## Returns
+
+    - `:ok`: Returns `:ok` indicating the item was added to the cart.
+  """
+  @spec add_item_to_cart(String.t()) :: :ok
   def add_item_to_cart(item) do
     GenServer.call(__MODULE__, {:add, item})
   end
 
+  @doc """
+  Calculates the total cost of items in the cart.
+
+  ## Returns
+
+    - `{:ok, Money.t()}`: Returns the total cost as a `Money` struct if successful.
+  """
+  @spec calculate_total() :: {:ok, Money.t()}
   def calculate_total() do
     GenServer.call(__MODULE__, :calculate_total)
   end
 
+  @doc """
+  Checks out the cart, clearing all items from it.
+
+  ## Returns
+
+    - `:ok`: Returns `:ok` indicating that the cart was successfully checked out and cleared.
+  """
+  @spec checkout_cart() :: :ok
   def checkout_cart() do
     GenServer.call(__MODULE__, :checkout)
   end
@@ -53,6 +84,7 @@ defmodule KantoxMarket.ShoppingCart do
     {:reply, :ok, %{}}
   end
 
+  @spec maybe_apply_discount(String.t(), non_neg_integer(), Money.t()) :: Money.t()
   defp maybe_apply_discount("GR1", quantity, price) when quantity >= 2 do
     if rem(quantity, 2) == 0 do
       price
@@ -79,6 +111,7 @@ defmodule KantoxMarket.ShoppingCart do
 
   defp maybe_apply_discount(_, quantity, price), do: Money.mult!(price, quantity)
 
+  @spec update_cart(map(), String.t()) :: map()
   defp update_cart(state, item_code) when is_map(state) do
     Map.update(state, item_code, 1, fn current_items_quantity -> current_items_quantity + 1 end)
   end
