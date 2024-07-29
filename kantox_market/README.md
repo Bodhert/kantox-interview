@@ -21,6 +21,22 @@ once it is build run
 docker run -it --rm kantox_market
 ```
 
+# Tests
+| COV   | FILE                                      | LINES | RELEVANT | MISSED |
+|-------|-------------------------------------------|-------|----------|--------|
+| 100.0%| deps/mox/lib/mox.ex                       | 866   | 1        | 0      |
+| 100.0%| lib/kantox_market.ex                      | 66    | 16       | 0      |
+| 0.0%  | lib/kantox_market/Cldr.ex                 | 9     | 0        | 0      |
+| 100.0%| lib/kantox_market/application.ex          | 16    | 4        | 0      |
+| 100.0%| lib/kantox_market/products_table.ex       | 70    | 8        | 0      |
+| 96.0% | lib/kantox_market/shopping_cart.ex        | 118   | 25       | 1      |
+| 100.0%| lib/kantox_market/supervisor.ex           | 18    | 3        | 0      |
+| 0.0%  | lib/shutdown_handler.ex                   | 23    | 1        | 1      |
+| 0.0%  | test/support/mocks.ex                     | 4     | 0        | 0      |
+| **[TOTAL]** | **96.5%**                          |       |          |        |
+
+
+
 ## Analysis
 
 ### Facts
